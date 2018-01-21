@@ -2,10 +2,15 @@ package com.example.usamaa.workoutapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -32,12 +37,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "Create Table" + TABLE_NAME + "("
-                        + EXERCISE_NAME + " Text, "
-                        + WEIGHT + " Text, "
-                        + SETS + " Text, "
-                        + REPS + " Text, "
-                        + DATE + "Date);";
+        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
+                        + EXERCISE_NAME + " TEXT, "
+                        + WEIGHT + " TEXT, "
+                        + SETS + " TEXT, "
+                        + REPS + " TEXT, "
+                        + DATE + " TEXT);";
 
         db.execSQL(query);
     }
@@ -48,31 +53,87 @@ public class DatabaseManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addRow(String exercise_name, String weight, String sets, String reps) {
 
+    public void addRow(String exercise_name, String weight, String sets, String reps) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(EXERCISE_NAME, exercise_name);
-        values.put(WEIGHT, weight);
-        values.put(SETS, sets);
-        values.put(REPS, reps);
-        values.put(DATE, formattedDate);
-        // Inserting Row
-        db.insert(TABLE_NAME, null, values);
-        db.close(); // Closing database connection
+        String Query = "Select * from " + TABLE_NAME + " where " + EXERCISE_NAME + " =\"" + exercise_name
+        + "\" AND "  + DATE + "=\"" + formattedDate + "\";";
+
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0) {
+            ContentValues values = new ContentValues();
+            values.put(EXERCISE_NAME, exercise_name);
+            values.put(WEIGHT, weight);
+            values.put(SETS, sets);
+            values.put(REPS, reps);
+            values.put(DATE, formattedDate);
+            // Inserting Row
+            db.insert(TABLE_NAME, null, values);
+            db.close(); // Closing database connection
+        }
     }
 
-    public void updateGoal(String old_exercise_name, String exercise_name, String weight, String sets, String reps) {
+    public void updateData(String exercise_name, String weight, String sets, String reps) {
         SQLiteDatabase db = this.getWritableDatabase();
+       /* db.execSQL("UPDATE " + TABLE_NAME + " SET " + EXERCISE_NAME + "=\"" + exercise_name + "\", " +
+                WEIGHT +"=\"" + weight + "\", " + SETS + "=\"" + sets + "\", " +
+                REPS +"=\"" + reps + "\", " + DATE + "=\"" + formattedDate
+                + "\" WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\";");
+*/
         db.execSQL("UPDATE " + TABLE_NAME + " SET " + EXERCISE_NAME + "=\"" + exercise_name + "\", " +
                     WEIGHT +"=\"" + weight + "\", " + SETS + "=\"" + sets + "\", " +
                     REPS +"=\"" + reps + "\", " + DATE + "=\"" + formattedDate
-                    + "\" WHERE " + EXERCISE_NAME + "=\"" + old_exercise_name + "\";");
+                    + "\" WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\" AND " + DATE
+                    + "= SELECT( max(" + DATE + ") FROM " + TABLE_NAME +";");
     }
 
     public void deleteRow(String exercise_name){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\";");
+    }
+
+    public ArrayList<Cursor> getData(String Query){
+        //get writable database
+        SQLiteDatabase sqlDB = this.getWritableDatabase();
+        String[] columns = new String[] { "message" };
+        //an array list of cursor to save two cursors one has results from the query
+        //other cursor stores error message if any errors are triggered
+        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
+        MatrixCursor Cursor2= new MatrixCursor(columns);
+        alc.add(null);
+        alc.add(null);
+
+        try{
+            String maxQuery = Query ;
+            //execute the query results will be save in Cursor c
+            Cursor c = sqlDB.rawQuery(maxQuery, null);
+
+            //add value to cursor2
+            Cursor2.addRow(new Object[] { "Success" });
+
+            alc.set(1,Cursor2);
+            if (null != c && c.getCount() > 0) {
+
+                alc.set(0,c);
+                c.moveToFirst();
+
+                return alc ;
+            }
+            return alc;
+        } catch(SQLException sqlEx){
+            Log.d("printing exception", sqlEx.getMessage());
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        } catch(Exception ex){
+            Log.d("printing exception", ex.getMessage());
+
+            //if any exceptions are triggered save the error message to cursor an return the arraylist
+            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
+            alc.set(1,Cursor2);
+            return alc;
+        }
     }
 
 }

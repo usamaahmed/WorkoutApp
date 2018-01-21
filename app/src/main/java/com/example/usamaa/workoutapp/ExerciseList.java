@@ -17,6 +17,7 @@ import java.util.List;
 public class ExerciseList extends AppCompatActivity {
 
     ArrayList<String> listItems=new ArrayList<String>();
+    DatabaseManager db;
 
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     ArrayAdapter<String> adapter;
@@ -86,11 +87,14 @@ public class ExerciseList extends AppCompatActivity {
         i.putExtra("selectedItems", selectedItems);
 
         startActivity(i);
-       /* String items= "";
-        for (String item:selectedItems){
-            items += "-"+item+"\n";
-        }
 
-        Toast.makeText(this, "you have selected \n"+ items, Toast.LENGTH_LONG).show();*/
+        db = new DatabaseManager(this, null, null, 1);
+        int rows = exercise_list.size();
+        String exerciseName;
+        for (int j=0; j<rows; j++){
+            exerciseName = exercise_list.get(j);
+            db.addRow(exerciseName, "0", "0", "0");
+        }
     }
+
 }

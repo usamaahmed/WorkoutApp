@@ -1,7 +1,10 @@
 package com.example.usamaa.workoutapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -67,32 +70,43 @@ public class StartWorkout extends AppCompatActivity {
 
     }
 
-    public void insertData() {
+    public void updateData(View v) {
         db = new DatabaseManager(this, null, null, 1);
         int rows = tl.getChildCount();
         String exerciseName;
         String weight;
         String sets;
         String reps;
-        for (int i=0; i<rows; i++){
+        for (int i = 0; i < rows; i++) {
 
             //String exercise = tl.getChildAt(i).getChildAt(1).getText().toString();
             TableRow row = (TableRow) tl.getChildAt(i);
 
-            TextView exercise_view = (TextView)row.getChildAt(0);
+            TextView exercise_view = (TextView) row.getChildAt(0);
             exerciseName = exercise_view.getText().toString();
 
-            TextView weight_view = (TextView)row.getChildAt(0);
+            TextView weight_view = (TextView) row.getChildAt(1);
             weight = weight_view.getText().toString();
 
-            TextView sets_view = (TextView)row.getChildAt(0);
+            TextView sets_view = (TextView) row.getChildAt(2);
             sets = sets_view.getText().toString();
 
-            TextView reps_view = (TextView)row.getChildAt(0);
+            TextView reps_view = (TextView) row.getChildAt(3);
             reps = reps_view.getText().toString();
+            if (TextUtils.isEmpty(weight) || TextUtils.isEmpty(sets) || TextUtils.isEmpty(reps)) {
+                Toast.makeText(this, "One of your input fields is empty", Toast.LENGTH_LONG).show();
+                continue;
+            }
 
-            db.addRow(exerciseName, weight, sets, reps);
+            else
+                db.updateData(exerciseName, weight, sets, reps);
         }
     }
+
+    public void viewDatabase(View v) {
+        Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
+        startActivity(dbmanager);
+    }
+
 
 }
