@@ -38,7 +38,7 @@
 </TableLayout>
 
     <Button
-        android:id="@+id/updateData"
+        android:id="@+id/completeWorkOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -46,8 +46,22 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
+        android:text="Complete"
+        android:onClick="completeWorkOut"/>
+
+
+    <Button
+        android:id="@+id/saveData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/completeWorkOut"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
         android:text="Save"
-        android:onClick="updateData"/>
+        android:onClick="saveData"/>
+
+
 
     <Button
         android:id="@+id/viewDatabase"

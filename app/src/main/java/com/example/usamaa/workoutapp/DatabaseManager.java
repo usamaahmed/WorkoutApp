@@ -20,12 +20,15 @@ import java.util.Calendar;
 public class DatabaseManager extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Exercise";
-    public static final String TABLE_NAME = "exercise_data";
+    public static final String FCT_EXERCISE = "exercise_data";
+    public static final String DIM_USER = "dim_user";
     public static final String EXERCISE_NAME = "exercise_name";
     public static final String WEIGHT = "weight";
     public static final String SETS = "sets";
     public static final String REPS = "reps";
     public static final String DATE = "date";
+    public static final String STATUS = "status";
+
     Calendar c = Calendar.getInstance();
 
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -37,26 +40,41 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
+        String exercise_query = "CREATE TABLE IF NOT EXISTS " + FCT_EXERCISE + "("
                         + EXERCISE_NAME + " TEXT, "
                         + WEIGHT + " TEXT, "
                         + SETS + " TEXT, "
                         + REPS + " TEXT, "
                         + DATE + " TEXT);";
 
-        db.execSQL(query);
+        db.execSQL(exercise_query);
+
+        String user_query = "CREATE TABLE IF NOT EXISTS " + DIM_USER + "("
+                + STATUS + " TEXT);";
+
+        db.execSQL(user_query);
+
+        Log.d("myTag", "Hey THERERERERRERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERER");
+
+        //String Query = "INSERT INTO " + DIM_USER + "(status) VALUES (\"Complete\");";
+        db.execSQL("INSERT INTO " + DIM_USER+ "(status ) VALUES ('Continue')");
+        //ContentValues values = new ContentValues();
+        //values.put(STATUS, "Complete");
+        // Inserting Row
+        //db.insert(DIM_USER, null, values);
+        //db.close(); // Closing database connection
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + FCT_EXERCISE);
+        //db.execSQL("DROP TABLE IF EXISTS " + DIM_USER);
         onCreate(db);
     }
 
-
     public void addRow(String exercise_name, String weight, String sets, String reps) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String Query = "Select * from " + TABLE_NAME + " where " + EXERCISE_NAME + " =\"" + exercise_name
+        String Query = "Select * from " + FCT_EXERCISE + " where " + EXERCISE_NAME + " =\"" + exercise_name
         + "\" AND "  + DATE + "=\"" + formattedDate + "\";";
 
         Cursor cursor = db.rawQuery(Query, null);
@@ -68,28 +86,65 @@ public class DatabaseManager extends SQLiteOpenHelper {
             values.put(REPS, reps);
             values.put(DATE, formattedDate);
             // Inserting Row
-            db.insert(TABLE_NAME, null, values);
+            db.insert(FCT_EXERCISE, null, values);
             db.close(); // Closing database connection
         }
     }
 
-    public void updateData(String exercise_name, String weight, String sets, String reps) {
+    public void updateExercise(String exercise_name, String weight, String sets, String reps) {
         SQLiteDatabase db = this.getWritableDatabase();
-       /* db.execSQL("UPDATE " + TABLE_NAME + " SET " + EXERCISE_NAME + "=\"" + exercise_name + "\", " +
-                WEIGHT +"=\"" + weight + "\", " + SETS + "=\"" + sets + "\", " +
-                REPS +"=\"" + reps + "\", " + DATE + "=\"" + formattedDate
-                + "\" WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\";");
-*/
-        db.execSQL("UPDATE " + TABLE_NAME + " SET " + EXERCISE_NAME + "=\"" + exercise_name + "\", " +
+        db.execSQL("UPDATE " + FCT_EXERCISE + " SET " + EXERCISE_NAME + "=\"" + exercise_name + "\", " +
                     WEIGHT +"=\"" + weight + "\", " + SETS + "=\"" + sets + "\", " +
                     REPS +"=\"" + reps + "\", " + DATE + "=\"" + formattedDate
                     + "\" WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\" AND " + DATE
-                    + "= SELECT( max(" + DATE + ") FROM " + TABLE_NAME +";");
+                    + "=\"" + formattedDate + "\";");
+    }
+
+
+    public void updateStatus(String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + DIM_USER + " SET " + STATUS + "=\"" + status + "\";");
+    }
+
+
+    public String getStatus() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT status FROM " + DIM_USER + ";";
+        String value = "";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            value = cursor.getString(cursor.getColumnIndex("status"));
+        }
+        return value;
+    }
+
+    public String[][] getLastWorkout() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT * FROM " + FCT_EXERCISE + " WHERE " + DATE + "= \"" + formattedDate +"\";";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String[][] exercise_array= new String[cursor.getCount()][5];
+        int cPos;
+        if(cursor.getCount()>0){
+           // exercise_array = new String[cursor.getCount()][5];
+            cursor.moveToFirst();
+            do { // always prefer do while loop while you deal with database
+                cPos = cursor.getPosition();
+                exercise_array[cPos][0] = cursor.getString(cursor.getColumnIndex(EXERCISE_NAME));
+                exercise_array[cPos][1] = cursor.getString(cursor.getColumnIndex(WEIGHT));
+                exercise_array[cPos][2] = cursor.getString(cursor.getColumnIndex(SETS));
+                exercise_array[cPos][3] = cursor.getString(cursor.getColumnIndex(REPS));
+                exercise_array[cPos][4] = cursor.getString(cursor.getColumnIndex(DATE));
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        } else {
+            Log.e("SQL Query Error", "Cursor has no data");
+        }
+        return exercise_array;
     }
 
     public void deleteRow(String exercise_name){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\";");
+        db.execSQL("DELETE FROM " + FCT_EXERCISE + " WHERE " + EXERCISE_NAME + "=\"" + exercise_name + "\";");
     }
 
     public ArrayList<Cursor> getData(String Query){

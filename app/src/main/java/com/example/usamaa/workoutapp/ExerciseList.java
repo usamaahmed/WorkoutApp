@@ -3,12 +3,14 @@ package com.example.usamaa.workoutapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,22 +80,32 @@ public class ExerciseList extends AppCompatActivity {
 
     public void addExercise(View v) {
         newExercise = ((EditText)findViewById(R.id.enterExercise)).getText().toString();
-        exercise_list.add(newExercise);
+         if (!TextUtils.isEmpty(newExercise))
+            exercise_list.add(newExercise);
+        else
+            Toast.makeText(this, "You haven't entered an exercise", Toast.LENGTH_LONG).show();
         arrayAdapter.notifyDataSetChanged();
     }
 
     public void startWorkout (View v){
-        Intent i= new Intent (ExerciseList.this, StartWorkout.class);
-        i.putExtra("selectedItems", selectedItems);
+        if(selectedItems.size() > 0) {
+            Intent i = new Intent(ExerciseList.this, StartWorkout.class);
+            i.putExtra("selectedItems", selectedItems);
+            i.putExtra("Source", "fromExerciseList");
 
-        startActivity(i);
+            startActivity(i);
 
-        db = new DatabaseManager(this, null, null, 1);
-        int rows = exercise_list.size();
-        String exerciseName;
-        for (int j=0; j<rows; j++){
-            exerciseName = exercise_list.get(j);
-            db.addRow(exerciseName, "0", "0", "0");
+            db = new DatabaseManager(this, null, null,11);
+            db.updateStatus("Continue");
+            int rows = selectedItems.size();
+            String exerciseName;
+            for (int j = 0; j < rows; j++) {
+                exerciseName = selectedItems.get(j);
+                db.addRow(exerciseName, "0", "0", "0");
+            }
+        }
+        else {
+            Toast.makeText(this, "Please select at least one exercise", Toast.LENGTH_LONG).show();
         }
     }
 

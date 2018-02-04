@@ -26,7 +26,8 @@
         android:text="NEXT"
         android:id="@+id/startWorkout"
         android:onClick="startWorkout"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
     <EditText
         android:id="@+id/enterExercise"
