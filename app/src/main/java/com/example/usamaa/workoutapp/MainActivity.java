@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new DatabaseManager(this, null, null,11);
+        db = new DatabaseManager(this, null, null, 12);
 
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainLayout);
         RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams

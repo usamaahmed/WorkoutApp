@@ -95,7 +95,7 @@ public class ExerciseList extends AppCompatActivity {
 
             startActivity(i);
 
-            db = new DatabaseManager(this, null, null,11);
+            db = new DatabaseManager(this, null, null, 12);
             db.updateStatus("Continue");
             int rows = selectedItems.size();
             String exerciseName;

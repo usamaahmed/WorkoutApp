@@ -50,14 +50,14 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.execSQL(exercise_query);
 
         String user_query = "CREATE TABLE IF NOT EXISTS " + DIM_USER + "("
-                + STATUS + " TEXT);";
+                + STATUS + " TEXT, " + DATE + " TEXT);";
 
         db.execSQL(user_query);
 
         Log.d("myTag", "Hey THERERERERRERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERER");
 
         //String Query = "INSERT INTO " + DIM_USER + "(status) VALUES (\"Complete\");";
-        db.execSQL("INSERT INTO " + DIM_USER+ "(status ) VALUES ('Continue')");
+        db.execSQL("INSERT INTO " + DIM_USER+ "(" + STATUS + "," + DATE + ") VALUES ('Complete','" + formattedDate +"')");
         //ContentValues values = new ContentValues();
         //values.put(STATUS, "Complete");
         // Inserting Row
@@ -103,7 +103,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void updateStatus(String status) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE " + DIM_USER + " SET " + STATUS + "=\"" + status + "\";");
+        db.execSQL("UPDATE " + DIM_USER + " SET " + STATUS + "=\"" + status + "\", " + DATE + "='"
+        + formattedDate + "';");
     }
 
 

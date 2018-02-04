@@ -1,7 +1,9 @@
 package com.example.usamaa.workoutapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +21,7 @@ public class StartWorkout extends AppCompatActivity {
 
     DatabaseManager db;
     TableLayout tl;
+    boolean isDataComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +29,10 @@ public class StartWorkout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_workout);
 
+        isDataComplete = true;
         String source = getIntent().getStringExtra("Source");
         if(source.equals("fromMain")){
-            db = new DatabaseManager(this, null, null, 11);
+            db = new DatabaseManager(this, null, null, 12);
 
             String [][] exercise_array = db.getLastWorkout();
 
@@ -99,27 +103,56 @@ public class StartWorkout extends AppCompatActivity {
         }
     }
 
+
     public void completeWorkOut (View v){
 
         updateExercise(v);
-        db = new DatabaseManager(this, null, null, 11);
+        db = new DatabaseManager(this, null, null, 12);
 
         db.updateStatus("Complete");
 
-        Intent intent= new Intent (this, MainActivity.class);
-        startActivity(intent);
+        if (isDataComplete){
+            Intent intent= new Intent (this, MainActivity.class);
+            startActivity(intent);
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            //add message
+            builder.setMessage("Incomplete data. Would you like to go ahead?")
+                    .setTitle("Incomplete data");// Add the buttons
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent= new Intent (StartWorkout.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User cancelled the dialog
+
+                }
+            });
+            // Set other dialog properties
+
+            // Create the AlertDialog
+            AlertDialog dialog = builder.create();
+
+
+            dialog.show();
+        }
+
     }
 
     public void saveData(View v){
         updateExercise(v);
-        db = new DatabaseManager(this, null, null, 11);
+        db = new DatabaseManager(this, null, null, 12);
 
         db.updateStatus("Continue");
 
     }
 
     public void updateExercise(View v) {
-        db = new DatabaseManager(this, null, null, 11);
+        db = new DatabaseManager(this, null, null, 12);
         int rows = tl.getChildCount();
         String exerciseName;
         String weight;
@@ -143,16 +176,16 @@ public class StartWorkout extends AppCompatActivity {
             TextView reps_view = (TextView) row.getChildAt(3);
             reps = reps_view.getText().toString();
             if (TextUtils.isEmpty(weight) || TextUtils.isEmpty(sets) || TextUtils.isEmpty(reps)) {
+                isDataComplete= false;
                 Toast.makeText(this, "One of your input fields is empty", Toast.LENGTH_LONG).show();
                 continue;
             }
 
-            else {
-                db.updateExercise(exerciseName, weight, sets, reps);
-                Toast.makeText(this, "Workout saved", Toast.LENGTH_LONG).show();
-            }
+            db.updateExercise(exerciseName, weight, sets, reps);
+            Toast.makeText(this, "Workout saved", Toast.LENGTH_LONG).show();
         }
     }
+
 
     public void viewDatabase(View v) {
         Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
