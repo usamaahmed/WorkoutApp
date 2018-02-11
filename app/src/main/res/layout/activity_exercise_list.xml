@@ -13,7 +13,10 @@
 
     <Button
         android:id="@+id/addExercise"
+        android:background="@drawable/roundedbutton"
         android:layout_width="wrap_content"
+        android:padding="15dp"
+        android:textColor="@color/white"
         android:layout_height="64dp"
         android:text="Add Exercise"
         android:layout_below="@id/exerciseList"
@@ -22,7 +25,10 @@
 
     <Button
         android:layout_width="wrap_content"
+        android:background="@drawable/roundedbutton"
         android:layout_height="64dp"
+        android:padding="15dp"
+        android:textColor="@color/white"
         android:text="NEXT"
         android:id="@+id/startWorkout"
         android:onClick="startWorkout"

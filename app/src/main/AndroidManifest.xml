@@ -9,23 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.usamaa.workoutapp.AndroidDatabaseManager"
-                  android:label="@string/app_name" />
+        <activity
+            android:name=".AndroidDatabaseManager"
+            android:label="@string/app_name" />
         <activity android:name=".MainActivity">
+        </activity>
+        <activity
+            android:name=".ExerciseList"
+            android:label="FlexFit" />
+        <activity
+            android:name=".StartWorkout"
+            android:label="@string/title_activity_start_workout"/>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ExerciseList"
-            android:label="@string/title_activity_exercise_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".StartWorkout"
-            android:label="@string/title_activity_start_workout"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
