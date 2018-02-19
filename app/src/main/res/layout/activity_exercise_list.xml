@@ -6,10 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.usamaa.workoutapp.ExerciseList">
 
-    <ListView
-        android:id="@+id/exerciseList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/enterExercise"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:hint="Enter new exercise"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/border"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/addExercise"
@@ -17,32 +23,30 @@
         android:layout_width="wrap_content"
         android:padding="15dp"
         android:textColor="@color/white"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:text="Add Exercise"
-        android:layout_below="@id/exerciseList"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/enterExercise"
+        android:layout_alignParentBottom="true"
         android:onClick="addExercise"/>
 
     <Button
         android:layout_width="wrap_content"
         android:background="@drawable/roundedbutton"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:padding="15dp"
         android:textColor="@color/white"
-        android:text="NEXT"
+        android:text="Next"
         android:id="@+id/startWorkout"
         android:onClick="startWorkout"
         android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/addExercise"
         android:layout_alignParentRight="true"/>
 
-    <EditText
-        android:id="@+id/enterExercise"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:hint="Enter new exercise"
-        android:layout_below="@+id/exerciseList"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textAlignment="center"/>
+    <ListView
+        android:id="@+id/exerciseList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/enterExercise"/>
 
 </RelativeLayout>

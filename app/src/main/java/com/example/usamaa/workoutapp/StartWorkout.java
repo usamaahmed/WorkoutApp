@@ -29,6 +29,10 @@ public class StartWorkout extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_workout);
 
+        Utilities utils = new Utilities();
+        View customView = getLayoutInflater().inflate(R.layout.action_bar, null);
+        utils.setActionBar(getSupportActionBar(), customView);
+
         isDataComplete = true;
         String source = getIntent().getStringExtra("Source");
         if(source.equals("fromMain")){

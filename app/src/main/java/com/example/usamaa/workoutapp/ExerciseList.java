@@ -20,6 +20,7 @@ public class ExerciseList extends AppCompatActivity {
 
     ArrayList<String> listItems=new ArrayList<String>();
     DatabaseManager db;
+    ListView lv;
 
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     ArrayAdapter<String> adapter;
@@ -32,13 +33,18 @@ public class ExerciseList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_list);
         // Get reference of widgets from XML layout
-        final ListView lv = (ListView) findViewById(R.id.exerciseList);
+        lv = (ListView) findViewById(R.id.exerciseList);
 
         // Initializing a new String Array
         String[] exercises = new String[]{
                 "Squat",
                 "Bench"
         };
+
+        Utilities utils = new Utilities();
+        View customView = getLayoutInflater().inflate(R.layout.action_bar, null);
+        TextView tv = (TextView) findViewById(R.id.action_bar_title);
+        utils.setActionBar(getSupportActionBar(), customView);
 
         lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         // Create a List from String Array elements
@@ -80,11 +86,14 @@ public class ExerciseList extends AppCompatActivity {
 
     public void addExercise(View v) {
         newExercise = ((EditText)findViewById(R.id.enterExercise)).getText().toString();
-         if (!TextUtils.isEmpty(newExercise))
-            exercise_list.add(newExercise);
-        else
-            Toast.makeText(this, "You haven't entered an exercise", Toast.LENGTH_LONG).show();
+         if (!TextUtils.isEmpty(newExercise)) {
+             exercise_list.add(newExercise);
+         }
+        else {
+             Toast.makeText(this, "You haven't entered an exercise", Toast.LENGTH_LONG).show();
+         }
         arrayAdapter.notifyDataSetChanged();
+        lv.smoothScrollToPosition(arrayAdapter.getCount());
     }
 
     public void startWorkout (View v){

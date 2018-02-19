@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
                 (ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
         setDisplay(rl);
-        setActionBar();
+        Utilities utils = new Utilities();
+        View customView = getLayoutInflater().inflate(R.layout.action_bar, null);
+        utils.setActionBar(getSupportActionBar(), customView);
         addContinueButton(params, rl);
 
     }
@@ -41,10 +42,20 @@ public class MainActivity extends AppCompatActivity {
     public void addContinueButton(RelativeLayout.LayoutParams params, RelativeLayout rl){
         params.addRule(RelativeLayout.BELOW, R.id.mainQuickStart);
         Button button = new Button(this);
-        button.setText(" Continue Workout");
-        button.setTextSize(20);
-        button.setGravity(Gravity.CENTER);
+        button.setText("Continue Workout");
         button.setLayoutParams(params);
+        button.setBackgroundResource(R.drawable.roundedbutton);
+        button.setTextAppearance(this, R.style.standardButtonStyle);
+        button.setGravity(Gravity.CENTER);
+
+        int height = getScreenHeight();
+        ViewGroup.MarginLayoutParams paramsBtn = (ViewGroup.MarginLayoutParams) button
+                .getLayoutParams();
+
+        paramsBtn.setMargins(0, height/20, 0, 0);
+
+        button.setLayoutParams(paramsBtn);
+
 
         //button.setOnClickListener(continueWorkout());
 
@@ -76,47 +87,25 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, ExerciseList.class));
     }
 
-    public void setActionBar() {
-        android.support.v7.app.ActionBar ab = getSupportActionBar();
-
-        ab.setDisplayOptions(R.layout.action_bar);
-        View customView = getLayoutInflater().inflate(R.layout.action_bar, null);
-        ab.setCustomView(customView);
-        Toolbar parent = (Toolbar) customView.getParent();
-        //parent.setPadding(0,0,0,0);//for tab otherwise give space in tab
-        parent.setContentInsetsAbsolute(0,0);
-
-
-        final Toolbar.LayoutParams lp = new Toolbar.LayoutParams
-                (Toolbar.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.MATCH_PARENT);
-        customView.setLayoutParams(lp);
-
-        TextView tv = (TextView) findViewById(R.id.action_bar_title);
-        tv.setText("FlexiFit");
-        tv.setTextColor(getResources().getColor(R.color.white));
-        tv.setTextSize(22);
-        tv.setGravity(Gravity.CENTER);
-    }
-
     public void setDisplay(RelativeLayout rl) {
         int height = getScreenHeight();
 
         Toast.makeText(this, String.valueOf(height),  Toast.LENGTH_LONG).show();
 
         TextView intro = (TextView) findViewById(R.id.intro);
-        Button continueBtn = (Button) findViewById(R.id.mainQuickStart);
+        Button quickStartBtn = (Button) findViewById(R.id.mainQuickStart);
 
         ViewGroup.MarginLayoutParams params1 = (ViewGroup.MarginLayoutParams) intro
                 .getLayoutParams();
 
-        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) continueBtn
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) quickStartBtn
                 .getLayoutParams();
 
         params1.setMargins(0, height/5, 0, 0);
         params2.setMargins(0, height/20, 0, 0);
 
         intro.setLayoutParams(params1);
-        continueBtn.setLayoutParams(params2);
+        quickStartBtn.setLayoutParams(params2);
 
     }
 
