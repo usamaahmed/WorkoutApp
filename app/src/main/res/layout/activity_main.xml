@@ -31,6 +31,6 @@
         android:onClick="quickStart"
         android:padding="15dp"
         android:text="Quick Start"
-        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

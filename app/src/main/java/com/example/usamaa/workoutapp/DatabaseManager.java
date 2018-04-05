@@ -119,6 +119,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return value;
     }
 
+    public String getLatestDate() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT date FROM " + DIM_USER + ";";
+        String value = "";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+            value = cursor.getString(cursor.getColumnIndex("date"));
+        }
+        return value;
+    }
+
     public String[][] getLastWorkout() {
         SQLiteDatabase db = this.getWritableDatabase();
         String selectQuery = "SELECT * FROM " + FCT_EXERCISE + " WHERE " + DATE + "= \"" + formattedDate +"\";";

@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     Button mainQuickStart;
@@ -41,8 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void addContinueButton(RelativeLayout.LayoutParams params, RelativeLayout rl){
         params.addRule(RelativeLayout.BELOW, R.id.mainQuickStart);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         Button button = new Button(this);
         button.setText("Continue Workout");
+
+        int padding_in_px = getPx(15);
+        button.setPadding(padding_in_px, padding_in_px, padding_in_px, padding_in_px);
         button.setLayoutParams(params);
         button.setBackgroundResource(R.drawable.roundedbutton);
         button.setTextAppearance(this, R.style.standardButtonStyle);
@@ -72,11 +79,18 @@ public class MainActivity extends AppCompatActivity {
         String status = db.getStatus();
 
 
+
         if(status.equals("Continue")) {
             //show button
             //go to start workout activity
             //populate table
-            rl.addView(button);
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            String formattedDate = df.format(c.getTime());
+
+            String latestDate= db.getLatestDate();
+            if (formattedDate.equals(latestDate))
+                rl.addView(button);
 
         }
     }
@@ -111,5 +125,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+
+    public int getPx(int padding_in_dp) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (padding_in_dp * scale + 0.5f);
     }
 }
