@@ -9,7 +9,7 @@
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@mipmap/ic_launcher"/>
+        android:background="@drawable/flexi_fit_icon"/>
 
 </RelativeLayout>
 
