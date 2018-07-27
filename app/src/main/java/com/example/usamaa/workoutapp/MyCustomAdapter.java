@@ -20,12 +20,14 @@ import static com.example.usamaa.workoutapp.Utilities.getSelectedItems;
  */
 
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter{
+    DatabaseManager db;
     private ArrayList<String> list = new ArrayList<String>();
     Utilities utils = new Utilities();
     private Context context;
 
-    public MyCustomAdapter(ArrayList<String> list, Context context) {
+    public MyCustomAdapter(DatabaseManager db, ArrayList<String> list, Context context) {
         this.list = list;
+        this.db=db;
         this.context = context;
     }
 
@@ -63,11 +65,13 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter{
        delBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                db.deleteExerciseName(list.get(i));
                 list.remove(i);
+                String selectedItem = tv.getText().toString();
+                Utilities.removeSelectedItems(selectedItem);
                 notifyDataSetChanged();
             }
         });
-
         CheckBox checkBtn= (CheckBox) view.findViewById(R.id.checkBox);
            checkBtn.setOnClickListener(new View.OnClickListener(){
             @Override
