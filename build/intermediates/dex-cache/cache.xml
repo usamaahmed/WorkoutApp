@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="580ce46165142042261c3f7d38bdba174304ea86">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_14d373506d2b28efa1734015dd4d66e4b5f78ef3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\14275ed3b7fd50e49a4cffb77688d569d25ea114\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_621194f6cbe13797b645e3508e7e648fbbf966d9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\9c3b4aa1c7b897fdb49545f26fc566e82691e652\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e39cc6a13d01886499c96d4e90ce77a5bd160efb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\00fdb16662d57cce3ec4819c0d0ba4ce9d75b719\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b96b20a0a49c8278999fc5c4bb893829ecb31a37\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\3046c32422ddba9d444f647ac106565a4103e15d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_62f4fb4b41c3312c11c5e309785ac35faaa47971\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-26.0.0-alpha1_465496f0af58f8f44a87951a189d2f52dc0a2ac5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\2b4ad59a537b219cb84073a91ab63ebae5c29e08\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1749a0a3c9056bd9fbab4f4407218e3ae990af22\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\ca07452de49e6fc9f76f1471e3c9d0382fd8b2ab\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e4f8b243848e2a4d2516ab3bd9ec484b6850d07d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\b57c4c79bf46b52e5cd08deff348c177558cec1f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6c3970d2af1a66b8966b900b69a30edeae35ef32\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\46e5df04752af4de90c4f0949dcf62d475ef9352\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_60facbdf7d0fc375e12098b7f227e123265a1744\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\d78864460ea66c49a34074bf9d94b30c3acd7436\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c63b66369cdf564a9b26807b5f312a569bf5f55a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.2\3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf\gson-2.8.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.8.2_710b098459b2dee653e004e47c681707b0200aea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\804196f9217c4e3576e45c987c181205d8651931\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_31a7977a6590bd3968cc651d30f19d16d39c69e4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_b72ded1d4962baea2831d01dab3e77aa49a840ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\6c77effc3edeff4cd143942778f688edd91a7ecd\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c8d2f7a79d7e8df3769b0c7bbe3f10838ea84292\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\d30d607ded1e0cb03787f8487918271bf0227edc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_735c3074ce419c7bf3c943dc0c1931e8be24bd12\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\.android\build-cache\f5658d1f59bc3a9a323598eb9ba968c61cc14485\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e1390e73db179c7f718d0f7b1793845b3790fc71\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\el-chanti\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\el-chanti\Documents\GitHub\WorkoutApp\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_f5e1753e8ba36dfd0b9938f6f929d02b4b287fe2\classes.dex" />
+    </item>
+
+</items>
