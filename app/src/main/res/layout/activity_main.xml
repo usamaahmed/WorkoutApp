@@ -33,4 +33,17 @@
         android:text="Quick Start"
         android:textColor="@color/white" />
 
+    <Button
+        android:id="@+id/mainPastWorkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainQuickStart"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/roundedbutton"
+        android:onClick="pastWorkout"
+        android:padding="15dp"
+        android:layout_marginTop="45dp"
+        android:text="Past Workout"
+        android:textColor="@color/white" />
+
 </RelativeLayout>

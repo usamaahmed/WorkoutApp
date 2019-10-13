@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = new DatabaseManager(this, null, null, 12);
+        db = new DatabaseManager(this, null, null, 15);
 
 
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainLayout);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addContinueButton(RelativeLayout.LayoutParams params, RelativeLayout rl){
-        params.addRule(RelativeLayout.BELOW, R.id.mainQuickStart);
+        params.addRule(RelativeLayout.BELOW, R.id.mainPastWorkout);
         params.addRule(RelativeLayout.CENTER_HORIZONTAL);
         Button button = new Button(this);
         button.setText("Continue Workout");
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StartWorkout.class);
+                Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
                 intent.putExtra("Source", "fromMain");
                 startActivity(intent);
             }
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             //go to start workout activity
             //populate table
             Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = df.format(c.getTime());
 
             String latestDate= db.getLatestDate();
@@ -100,10 +99,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, ExerciseList.class));
     }
 
+    public void pastWorkout(View view) {
+        //Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
+        //startActivity(dbmanager);
+        startActivity(new Intent(MainActivity.this, PastWorkout.class));
+    }
+
     public void setDisplay(RelativeLayout rl) {
         int height = getScreenHeight();
-
-        Toast.makeText(this, String.valueOf(height),  Toast.LENGTH_LONG).show();
 
         TextView intro = (TextView) findViewById(R.id.intro);
         Button quickStartBtn = (Button) findViewById(R.id.mainQuickStart);

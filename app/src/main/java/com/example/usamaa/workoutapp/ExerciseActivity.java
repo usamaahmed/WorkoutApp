@@ -25,21 +25,35 @@ public class ExerciseActivity extends AppCompatActivity {
     DatabaseManager db;
     TableLayout tl;
     boolean isDataComplete;
-    int i = 0;
+    int i;
     ArrayList<String> selectedItems = Utilities.getSelectedItems();
     TextView exercise;
     Button complete;
-    SharedPreferences sharedPrefs;
     private static final String TAG = "ExerciseActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBar();
+        i=0;
         setContentView(R.layout.activity_exercise);
         exercise = (TextView) findViewById(R.id.exerciseName);
-        exercise.setText(selectedItems.get(0));
-        if(i==selectedItems.size()-1){
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+       // i = sharedPrefs.getInt("currentExercise", 0);
+        String source = getIntent().getStringExtra("Source");
+        if(source.equals("fromMain")) {
+            Gson gson = new Gson();
+            String json1 = sharedPrefs.getString(TAG, null);
+            Type type = new TypeToken<ArrayList<String>>() {}.getType();
+            ArrayList<String> arrayList = gson.fromJson(json1, type);
+            selectedItems= arrayList;
+            Log.d("Tag:", json1);
+        }
+        Log.d("CurrentExc: ", String.valueOf(i));
+        exercise.setText(selectedItems.get(i));
+        if (i == selectedItems.size() - 1) {
             complete = (Button) findViewById(R.id.activityNext);
             complete.setText("Finish Work Out");
         }
@@ -47,18 +61,20 @@ public class ExerciseActivity extends AppCompatActivity {
 
     public void setActionBar(){
         Utilities utils = new Utilities();
-        Log.d("tag", "util:" + utils);
         View customView = getLayoutInflater().inflate(R.layout.action_bar, null);
-        Log.d("tag", "customeView:" + customView);
         TextView tv = (TextView) findViewById(R.id.action_bar_title);
-        Log.d("tag", "Textview working");
         utils.setActionBar(getSupportActionBar(), customView);
-        Log.d("tag", "setActionBar fuckedup");
     }
 
     public void nextExercise(View v) {
+        db = new DatabaseManager(this, null, null, 15);
+        db.updateStatus("Continue");
         int size = selectedItems.size()-i;
         i++;
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putInt("currentExercise", i);
+        editor.commit();
         ArrayList<String> unfinishedExercises = new ArrayList<String>();
 
 
@@ -79,7 +95,7 @@ public class ExerciseActivity extends AppCompatActivity {
         }
 
         else if(i==selectedItems.size()){
-
+            db.updateStatus("Complete");
             startActivity(new Intent(this, MainActivity.class));
         }
 
@@ -89,7 +105,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
     public void updateExercise() {
 
-        db = new DatabaseManager(this, null, null, 12);
+        db = new DatabaseManager(this, null, null, 15);
         String exerciseName;
         String weight;
         String sets;
@@ -123,7 +139,6 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     public void clearText() {
-
         EditText wView= (EditText) findViewById(R.id.activityWeight);
         wView.getText().clear();
 
@@ -147,8 +162,5 @@ public class ExerciseActivity extends AppCompatActivity {
         String json1 = sharedPrefs.getString(TAG, null);
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         ArrayList<String> arrayList = gson.fromJson(json1, type);
-        for (int j=0;j< arrayList.size();j++) {
-            Log.d("TAG", j + " proof:  " + arrayList.get(j));
-        }
     }
 }

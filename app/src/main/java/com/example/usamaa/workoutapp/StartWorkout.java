@@ -51,7 +51,7 @@ public class StartWorkout extends AppCompatActivity {
         isDataComplete = true;
         String source = getIntent().getStringExtra("Source");
         if(source.equals("fromMain")){
-            db = new DatabaseManager(this, null, null, 12);
+            db = new DatabaseManager(this, null, null, 15);
 
             String [][] exercise_array = db.getLastWorkout();
 
@@ -100,7 +100,7 @@ public class StartWorkout extends AppCompatActivity {
 
             Calendar c = Calendar.getInstance();
 
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = df.format(c.getTime());
 
             //for (i=0;i++;)
@@ -139,7 +139,7 @@ public class StartWorkout extends AppCompatActivity {
     public void completeWorkOut (View v){
 
         updateExercise(v);
-        db = new DatabaseManager(this, null, null, 12);
+        db = new DatabaseManager(this, null, null, 15);
 
         db.updateStatus("Complete");
 
@@ -177,14 +177,14 @@ public class StartWorkout extends AppCompatActivity {
 
     public void saveData(View v){
         updateExercise(v);
-        db = new DatabaseManager(this, null, null, 12);
+        db = new DatabaseManager(this, null, null, 15);
 
         db.updateStatus("Continue");
 
     }
 
     public void updateExercise(View v) {
-        db = new DatabaseManager(this, null, null, 12);
+        db = new DatabaseManager(this, null, null, 15);
         int rows = tl.getChildCount();
         String exerciseName;
         String weight;
